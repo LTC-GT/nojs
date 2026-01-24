@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LTC NoJS Gallery</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐝</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .video-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: #f9f9f9;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-header {
+            /* Remove right padding so the download button can sit flush */
+            padding: 1.5rem 0 1.5rem 1.5rem;
+            background: #f0f0f0;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            overflow: hidden;
+        }
+
+        .video-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            background: #000;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .video-grid {
+                gap: 1.5rem;
+            }
+
+            .video-header {
+                padding: 1rem;
+            }
+
+            .video-header h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Ensure videos are responsive on very small screens */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .video-grid {
+                gap: 1rem;
+            }
+        }
+
+        .event-box {
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .event-box-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .event-box-date {
+            color: #667eea;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .event-box-title {
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+        }
+
+        .download-link {
+            text-decoration: none;
+            color: #667eea;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .download-link:hover {
+            opacity: 0.7;
+        }
+
+        .video-card .download-link {
+            color: white;
+            background: #667eea;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            padding: 1.5rem 2rem;
+            /* Let the button extend to the right edge of the card */
+            margin: -1.5rem 0 -1.5rem 1rem;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            align-self: stretch;
+        }
+
+        /* Video download button - round top-right corner */
+        .video-card .video-header:first-child .download-link {
+            border-radius: 0 12px 0 0;
+        }
+
+        /* Audio download button - square corners */
+        .video-wrapper + .video-header .download-link {
+            border-radius: 0;
+        }
+
+        .video-card .download-link:hover {
+            background: #5568d3;
+            opacity: 1;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .video-card {
+                page-break-inside: avoid;
+            }
+
+            .event-box {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LibreTech Collective NoJS Gallery</h1>
+        <p style="text-align: center; color: #888; margin-bottom: 0.5rem; font-size: 0.9rem;">
+            All videos are 1080p resolution, VP9-encoded, and packaged in WebM format. Audio files are packaged in Ogg format - <a href="https://www.gnu.org/audio-video/audio-video-docs.html#distribution-formats" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">in compliance with GNU guidelines</a>
+        </p>
+        <p style="text-align: center; color: #888; margin-bottom: 2rem; font-size: 0.85rem;">
+            All content licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">CC BY 4.0</a>
+        </p>
+        
+        <!-- 
+            TO ADD NEW EVENT: Copy the entire event-box section below and paste it here.
+            Update the date, title, and video sources accordingly.
+        -->
+
+        <!-- Event Box: January 23, 2026 -->
+        <div class="event-box">
+            <div class="event-box-header">
+                <div class="event-box-date">January 23, 2026</div>
+                <div class="event-box-title">Dr. Richard Stallman: Free/Libre Software And Our Freedom: Our shield against many digital injustices</div>
+                <div style="margin-top: 0.5rem; font-size: 0.95rem; color: #555;">
+                    Presented at the Scheller College of Business, <a href="https://www.gatech.edu/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Georgia Tech</a>.
+            </div>
+
+            <div class="video-grid">
+                <article class="video-card">
+                    <div class="video-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h2>Talk</h2>
+                            <p>Main presentation video</p>
+                        </div>
+                        <a href="https://gtvault-my.sharepoint.com/personal/kjenkins60_gatech_edu/_layouts/15/download.aspx?UniqueId=934b5be0%2Db62f%2D4e26%2D92b1%2D69de14edc92b" download="talk.webm" class="download-link">
+                            <span style="font-size: 2rem;">⬇</span>
+                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download</span>
+                        </a>
+                    </div>
+                    <div class="video-wrapper">
+                        <video controls preload="metadata">
+                            <source src="https://gtvault-my.sharepoint.com/personal/kjenkins60_gatech_edu/_layouts/15/download.aspx?UniqueId=934b5be0%2Db62f%2D4e26%2D92b1%2D69de14edc92b" type="video/webm">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-header" style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #667eea; border-bottom: none;">
+                        <div>
+                            <h2 style="font-size: 1.2rem;">Audio</h2>
+                            <p>Audio-only version</p>
+                        </div>
+                        <a href="https://gtvault-my.sharepoint.com/personal/kjenkins60_gatech_edu/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fkjenkins60%5Fgatech%5Fedu%2FDocuments%2FRMS%2D01%2D23%2D26%2FRMS%2D01%2D23%2D26%2Dtalk%2Eogg" download="talk_audio.ogg" class="download-link">
+                            <span style="font-size: 2rem;">⬇</span>
+                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download</span>
+                        </a>
+                    </div>
+                    <div style="padding: 1rem; background: #f9f9f9;">
+                        <audio controls preload="metadata" style="width: 100%;">
+                            <source src="https://gtvault-my.sharepoint.com/personal/kjenkins60_gatech_edu/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fkjenkins60%5Fgatech%5Fedu%2FDocuments%2FRMS%2D01%2D23%2D26%2FRMS%2D01%2D23%2D26%2Dtalk%2Eogg" type="audio/ogg">
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </div>
+                </article>
+
+                <article class="video-card">
+                    <div class="video-header" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h2>Q&A</h2>
+                            <p>Question and answer session video</p>
+                        </div>
+                        <a href="https://gtvault-my.sharepoint.com/personal/kjenkins60_gatech_edu/_layouts/15/download.aspx?UniqueId=06d879cb%2Df8b4%2D45ce%2D886f%2Da1ac8679b10f" download="qa.webm" class="download-link">
+                            <span style="font-size: 2rem;">⬇</span>
+                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download</span>
+                        </a>
+                    </div>
+                    <div class="video-wrapper">
+                        <video controls preload="metadata">
+                            <source src="https://gtvault-my.sharepoint.com/personal/kjenkins60_gatech_edu/_layouts/15/download.aspx?UniqueId=06d879cb%2Df8b4%2D45ce%2D886f%2Da1ac8679b10f" type="video/webm">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-header" style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #667eea; border-bottom: none;">
+                        <div>
+                            <h2 style="font-size: 1.2rem;">Audio</h2>
+                            <p>Audio-only version</p>
+                        </div>
+                        <a href="https://gtvault-my.sharepoint.com/personal/kjenkins60_gatech_edu/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fkjenkins60%5Fgatech%5Fedu%2FDocuments%2FRMS%2D01%2D23%2D26%2FRMS%2D01%2D24%2D26%2Dqa%2Eogg" download="qa_audio.ogg" class="download-link">
+                            <span style="font-size: 2rem;">⬇</span>
+                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download</span>
+                        </a>
+                    </div>
+                    <div style="padding: 1rem; background: #f9f9f9;">
+                        <audio controls preload="metadata" style="width: 100%;">
+                            <source src="https://gtvault-my.sharepoint.com/personal/kjenkins60_gatech_edu/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fkjenkins60%5Fgatech%5Fedu%2FDocuments%2FRMS%2D01%2D23%2D26%2FRMS%2D01%2D24%2D26%2Dqa%2Eogg" type="audio/ogg">
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- End Event Box -->
+    </div>
+</body>
+<footer>
+    <p style="text-align: center; padding: 1rem; font-size: 0.9rem; color: #666;">
+        Built with no JavaScript - only HTML and CSS -
+        by <a href="https://ltc.gtorg.gatech.edu/" target="_blank" rel="noopener noreferrer">LibreTech Collective @ Georgia Tech.</a>
+        <br>
+        <a href="https://github.com/ltc-GT/nojs" target="_blank" rel="noopener noreferrer" class="download-link" style="display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; color: #666;">
+            <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            View on GitHub
+        </a>
+    </p>
+</footer>
+</html>
