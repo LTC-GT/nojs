@@ -1,5 +1,5 @@
 # NOTICE
-GPLv3 does NOT apply to `/audio` or `/videos` folders - those are [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode.en) licensed content. 
+GPLv3 does NOT apply videos - those are [CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0/legalcode.en) licensed content.
 
 ---
 

@@ -1,0 +1,210 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #ffffff;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+.video-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.video-card {
+    background: #f9f9f9;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+}
+
+.video-header {
+    /* Remove right padding so the download button can sit flush */
+    padding: 1.5rem 0 1.5rem 1.5rem;
+    background: #f0f0f0;
+    color: #333;
+    overflow: hidden;
+}
+
+.video-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.video-header p {
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    background: #000;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .video-grid {
+        gap: 1.5rem;
+    }
+
+    .video-header {
+        padding: 1rem;
+    }
+
+    .video-header h2 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Ensure videos are responsive on very small screens */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .video-grid {
+        gap: 1rem;
+    }
+}
+
+.event-box {
+    background: #f5f5f5;
+    border: 2px solid #e0e0e0;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.event-box-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.event-box-date {
+    color: #4c5fd5;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.event-box-title {
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.download-link {
+    text-decoration: underline;
+    color: #4c5fd5;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity 0.3s ease;
+}
+
+.download-link:hover {
+    opacity: 0.7;
+}
+
+.video-card .download-link {
+    color: white;
+    background: #4c5fd5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 1.5rem 2rem;
+    /* Let the button extend to the right edge of the card */
+    margin: -1.5rem 0 -1.5rem 1rem;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    align-self: stretch;
+    text-decoration: none;
+}
+
+/* Video download button - round top-right corner */
+.video-card .video-header:first-child .download-link {
+    border-radius: 0 12px 0 0;
+}
+
+/* Audio download button - square corners */
+.video-wrapper + .video-header .download-link {
+    border-radius: 0;
+}
+
+.video-card .download-link:hover {
+    background: #3d4db0;
+    opacity: 1;
+}
+
+/* Download icon using CSS-encoded SVG */
+.download-icon {
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"%3E%3Cpath d="M12 2C12.5523 2 13 2.44772 13 3V13.5858L16.2929 10.2929C16.6834 9.90237 17.3166 9.90237 17.7071 10.2929C18.0976 10.6834 18.0976 11.3166 17.7071 11.7071L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L6.29289 11.7071C5.90237 11.3166 5.90237 10.6834 6.29289 10.2929C6.68342 9.90237 7.31658 9.90237 7.70711 10.2929L11 13.5858V3C11 2.44772 11.4477 2 12 2ZM4 17C4.55228 17 5 17.4477 5 18V19C5 19.5523 5.44772 20 6 20H18C18.5523 20 19 19.5523 19 19V18C19 17.4477 19.4477 17 20 17C20.5523 17 21 17.4477 21 18V19C21 20.6569 19.6569 22 18 22H6C4.34315 22 3 20.6569 3 19V18C3 17.4477 3.44772 17 4 17Z"/%3E%3C/svg%3E');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white;
+    }
+
+    .video-card {
+        page-break-inside: avoid;
+    }
+
+    .event-box {
+        page-break-inside: avoid;
+    }
+}

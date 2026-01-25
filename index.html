@@ -5,217 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LTC NoJS Gallery</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐝</text></svg>">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #ffffff;
-            min-height: 100vh;
-            padding: 2rem 1rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-        }
-
-        .video-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .video-card {
-            background: #f9f9f9;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .video-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .video-header {
-            /* Remove right padding so the download button can sit flush */
-            padding: 1.5rem 0 1.5rem 1.5rem;
-            background: #f0f0f0;
-            color: #333;
-            border-bottom: 2px solid #667eea;
-            overflow: hidden;
-        }
-
-        .video-header h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .video-header p {
-            opacity: 0.9;
-            font-size: 0.95rem;
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            background: #000;
-        }
-
-        video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Mobile optimization */
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem 0.5rem;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .video-grid {
-                gap: 1.5rem;
-            }
-
-            .video-header {
-                padding: 1rem;
-            }
-
-            .video-header h2 {
-                font-size: 1.25rem;
-            }
-        }
-
-        /* Ensure videos are responsive on very small screens */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .video-grid {
-                gap: 1rem;
-            }
-        }
-
-        .event-box {
-            background: #f5f5f5;
-            border: 2px solid #e0e0e0;
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .event-box-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #667eea;
-        }
-
-        .event-box-date {
-            color: #667eea;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .event-box-title {
-            color: #333;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 0.5rem;
-        }
-
-        .download-link {
-            text-decoration: none;
-            color: #667eea;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: opacity 0.3s ease;
-        }
-
-        .download-link:hover {
-            opacity: 0.7;
-        }
-
-        .video-card .download-link {
-            color: white;
-            background: #667eea;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.25rem;
-            padding: 1.5rem 2rem;
-            /* Let the button extend to the right edge of the card */
-            margin: -1.5rem 0 -1.5rem 1rem;
-            transition: all 0.3s ease;
-            min-width: 120px;
-            align-self: stretch;
-        }
-
-        /* Video download button - round top-right corner */
-        .video-card .video-header:first-child .download-link {
-            border-radius: 0 12px 0 0;
-        }
-
-        /* Audio download button - square corners */
-        .video-wrapper + .video-header .download-link {
-            border-radius: 0;
-        }
-
-        .video-card .download-link:hover {
-            background: #5568d3;
-            opacity: 1;
-        }
-
-        /* Print styles */
-        @media print {
-            body {
-                background: white;
-            }
-
-            .video-card {
-                page-break-inside: avoid;
-            }
-
-            .event-box {
-                page-break-inside: avoid;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <main>
     <div class="container">
         <h1>LibreTech Collective NoJS Gallery</h1>
-        <p style="text-align: center; color: #888; margin-bottom: 0.5rem; font-size: 0.9rem;">
-            All videos are 1080p resolution, VP9-encoded, and packaged in WebM format. Audio files are packaged in Ogg/Vorbis format - <a href="https://www.gnu.org/audio-video/audio-video-docs.html#distribution-formats" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;"> all in compliance with GNU guidelines</a>
+        <p style="text-align: center; color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">
+            Video files are 1080p resolution, VP9-encoded, and packaged in WebM format. Audio files are packaged in Ogg/Vorbis format - <a href="https://www.gnu.org/audio-video/audio-video-docs.html#distribution-formats" target="_blank" rel="noopener noreferrer" style="color: #4c5fd5; text-decoration: underline;"> all in compliance with GNU guidelines</a>
         </p>
-        <p style="text-align: center; color: #888; margin-bottom: 2rem; font-size: 0.85rem;">
-            <b>NOTICE:</b> All content licensed under <a href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">CC BY-ND 4.0</a>
+        <p style="text-align: center; color: #666; margin-bottom: 2rem; font-size: 0.85rem;">
+            <b>NOTICE:</b> All media licensed under <a href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener noreferrer" style="color: #4c5fd5; text-decoration: underline;">CC BY-ND 4.0</a>
         </p>
         
         <!-- 
@@ -228,8 +28,8 @@
             <div class="event-box-header">
                 <div class="event-box-date">January 23, 2026</div>
                 <div class="event-box-title">Dr. Richard Stallman: Free/Libre Software And Our Freedom: Our shield against many digital injustices</div>
-                <div style="margin-top: 0.5rem; font-size: 0.95rem; color: #555;">
-                    Presented at the Scheller College of Business, <a href="https://www.gatech.edu/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">Georgia Tech</a>.
+                <div style="margin-top: 0.5rem; font-size: 0.95rem; color: #333;">
+                    Presented at the Scheller College of Business, <a href="https://www.gatech.edu/" target="_blank" rel="noopener noreferrer" style="color: #4c5fd5; text-decoration: underline;">Georgia Tech</a>.
             </div>
 
             <div class="video-grid">
@@ -239,25 +39,26 @@
                             <h2>Talk</h2>
                             <p>Main presentation video</p>
                         </div>
-                        <a href="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-23-26-talk.webm" download="talk.webm" class="download-link">
-                            <span style="font-size: 2rem;">⬇</span>
-                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download</span>
+                        <a href="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-23-26-talk.webm" download="talk.webm" class="download-link" aria-label="Download Talk Video WebM">
+                            <span class="download-icon"></span>
+                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download Video</span>
                         </a>
                     </div>
                     <div class="video-wrapper">
-                        <video controls preload="metadata">
+                        <video controls preload="metadata" aria-label="Main presentation video">
                             <source src="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-23-26-talk.webm" type="video/webm">
+                            <track kind="captions" src="" label="English" default>
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <div class="video-header" style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #667eea; border-bottom: none;">
+                    <div class="video-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <h2 style="font-size: 1.2rem;">Audio</h2>
                             <p>Audio-only version</p>
                         </div>
-                        <a href="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-24-26-talk.ogg" download="talk_audio.ogg" class="download-link">
-                            <span style="font-size: 2rem;">⬇</span>
-                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download</span>
+                        <a href="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-24-26-talk.ogg" download="talk_audio.ogg" class="download-link" aria-label="Download Talk Audio Ogg">
+                            <span class="download-icon"></span>
+                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download Audio</span>
                         </a>
                     </div>
                     <div style="padding: 1rem; background: #f9f9f9;">
@@ -274,25 +75,26 @@
                             <h2>Q&A</h2>
                             <p>Question and answer session video</p>
                         </div>
-                        <a href="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-23-26-qa.webm" download="qa.webm" class="download-link">
-                            <span style="font-size: 2rem;">⬇</span>
-                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download</span>
+                        <a href="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-23-26-qa.webm" download="qa.webm" class="download-link" aria-label="Download Q&A Video WebM">
+                            <span class="download-icon"></span>
+                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download Video</span>
                         </a>
                     </div>
                     <div class="video-wrapper">
-                        <video controls preload="metadata">
+                        <video controls preload="metadata" aria-label="Question and answer session video">
                             <source src="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-23-26-qa.webm" type="video/webm">
+                            <track kind="captions" src="" label="English" default>
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <div class="video-header" style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #667eea; border-bottom: none;">
+                    <div class="video-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <h2 style="font-size: 1.2rem;">Audio</h2>
                             <p>Audio-only version</p>
                         </div>
-                        <a href="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-24-26-qa.ogg" download="qa_audio.ogg" class="download-link">
-                            <span style="font-size: 2rem;">⬇</span>
-                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download</span>
+                        <a href="https://github.com/LTC-GT/nojs/releases/download/rms/RMS-01-24-26-qa.ogg" download="qa_audio.ogg" class="download-link" aria-label="Download Q&A Audio Ogg">
+                            <span class="download-icon"></span>
+                            <span style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Download Audio</span>
                         </a>
                     </div>
                     <div style="padding: 1rem; background: #f9f9f9;">
@@ -306,6 +108,7 @@
         </div>
         <!-- End Event Box -->
     </div>
+    </main>
 </body>
 <footer>
     <p style="text-align: center; padding: 1rem; font-size: 0.9rem; color: #666;">
